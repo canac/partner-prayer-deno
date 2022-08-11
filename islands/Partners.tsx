@@ -22,7 +22,7 @@ export default function Partners(props: PartnersProps) {
     <div className={tw`flex flex-col`}>
       {partners.map((partner) => (
         <Partner
-          className={tw`self-center w-1/2`}
+          className={tw`md:self-center md:w-1/2`}
           key={partner.id}
           partner={partner}
         />
