@@ -20,10 +20,10 @@ export default function Partners(props: PartnersProps) {
 
   return (
     <div className={tw`flex flex-col`}>
-      {partners.map((partner, index) => (
+      {partners.map((partner) => (
         <Partner
           className={tw`self-center w-1/2`}
-          key={index}
+          key={partner.id}
           partner={partner}
         />
       ))}
