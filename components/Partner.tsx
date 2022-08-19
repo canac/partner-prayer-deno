@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "preact";
+import { createRef, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { tw } from "@twind";
 import { parseOne, Partner } from "../partnerModel.ts";
@@ -7,6 +7,7 @@ import { parseOne, Partner } from "../partnerModel.ts";
 export function Partner(
   props: h.JSX.HTMLAttributes<HTMLButtonElement> & {
     partner: Partner;
+    scrollTo: boolean;
   },
 ) {
   const [completed, setCompleted] = useState(props.partner.completed);
@@ -15,6 +16,15 @@ export function Partner(
   useEffect(() => {
     setCompleted(props.partner.completed);
   }, [props.partner]);
+
+  // Scroll the partner into view if scrollTo is true
+  useEffect(() => {
+    if (props.scrollTo) {
+      ref.current?.scrollIntoView();
+    }
+  }, [props.scrollTo]);
+
+  const ref = createRef<HTMLButtonElement>();
 
   async function toggleCompleted() {
     // Optimistic update
@@ -34,9 +44,12 @@ export function Partner(
   return (
     <button
       {...props}
-      className={tw`text-2xl hover:cursor-pointer m-4 p-6 ${
+      className={tw`text-2xl hover:cursor-pointer m-4 p-6 scroll-m-4 ${
         completed ? completeColor : incompleteColor
       } rounded-xl ${props.className}`}
+      // twind v0 doesn't support scroll-m-*
+      style={{ "scroll-margin": "1rem" }}
+      ref={ref}
       onClick={() => toggleCompleted()}
     >
       {props.partner.name}

@@ -1,6 +1,6 @@
 /** @jsx h */
-import { h } from "preact";
-import { useState } from "preact/hooks";
+import { createRef, h, RefObject } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import { tw } from "@twind";
 import { Partner } from "../components/Partner.tsx";
 import { parseMany, Partner as PartnerModel } from "../partnerModel.ts";
@@ -11,12 +11,18 @@ interface PartnersProps {
 
 export default function Partners(props: PartnersProps) {
   const [partners, setPartners] = useState(props.partners);
+  const [startPartner, setStartPartner] = useState<PartnerModel | null>(null);
 
   async function reset() {
     const res = await fetch("/api/reset", { method: "POST" });
     const partners = await res.json();
     setPartners(await parseMany(partners));
   }
+
+  useEffect(() => {
+    // Find the first incomplete partner
+    setStartPartner(partners.find((partner) => !partner.completed) ?? null);
+  }, [partners]);
 
   return (
     <div className={tw`flex flex-col`}>
@@ -25,6 +31,7 @@ export default function Partners(props: PartnersProps) {
           className={tw`md:self-center md:w-1/2`}
           key={partner.id}
           partner={partner}
+          scrollTo={startPartner === partner}
         />
       ))}
       <button
