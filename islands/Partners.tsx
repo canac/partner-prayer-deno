@@ -28,7 +28,7 @@ export default function Partners(props: PartnersProps) {
         />
       ))}
       <button
-        className={tw`self-center w-1/2 text-2xl hover:cursor-pointer m-4 p-6 bg-red-500 hover:bg-red-600 rounded-xl`}
+        className={tw`md:self-center md:w-1/2 text-2xl hover:cursor-pointer m-4 p-6 bg-red-500 hover:bg-red-600 rounded-xl`}
         onClick={() => reset()}
       >
         Reset
