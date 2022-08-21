@@ -39,12 +39,12 @@ export function Partner(
     setCompleted((await parseOne(partner)).completed);
   }
 
-  const completeColor = tw`bg-green-500 hover:bg-green-600 text-gray-200`;
-  const incompleteColor = tw`bg-gray-200 hover:bg-gray-100 text-gray-800`;
+  const completeColor = tw`bg-green-500 hover:bg-green-600`;
+  const incompleteColor = tw`bg-gray-200 hover:bg-gray-100`;
   return (
     <button
       {...props}
-      className={tw`text-2xl hover:cursor-pointer m-4 p-6 scroll-m-4 ${
+      className={tw`text-2xl hover:cursor-pointer m-4 p-6 scroll-m-4 text-gray-800 ${
         completed ? completeColor : incompleteColor
       } rounded-xl ${props.className}`}
       // twind v0 doesn't support scroll-m-*
