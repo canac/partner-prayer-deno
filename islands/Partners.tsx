@@ -1,4 +1,3 @@
-import { createRef, RefObject } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { Partner } from "../components/Partner.tsx";
 import { parseMany, Partner as PartnerModel } from "../partnerModel.ts";
