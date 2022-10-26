@@ -1,7 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-import { Fragment, h } from "preact";
-import { tw } from "@twind";
 import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Partners from "../islands/Partners.tsx";
@@ -24,8 +20,8 @@ export default function Index({ data }: PageProps<IndexData>) {
       <Head>
         <title>Partner Prayer</title>
       </Head>
-      <main class={tw`bg-gray-800 text-center text-gray-200`}>
-        <h1 class={tw`text-4xl font-bold py-8`}>Partner Prayer</h1>
+      <main class="bg-gray-800 text-center text-gray-200">
+        <h1 class="text-4xl font-bold py-8">Partner Prayer</h1>
         <Partners
           partners={data.partners}
         />

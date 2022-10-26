@@ -1,11 +1,9 @@
-/** @jsx h */
-import { createRef, h } from "preact";
+import { createRef, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { tw } from "@twind";
 import { parseOne, Partner } from "../partnerModel.ts";
 
 export function Partner(
-  props: h.JSX.HTMLAttributes<HTMLButtonElement> & {
+  props: JSX.HTMLAttributes<HTMLButtonElement> & {
     partner: Partner;
     scrollTo: boolean;
   },
@@ -39,12 +37,12 @@ export function Partner(
     setCompleted((await parseOne(partner)).completed);
   }
 
-  const completeColor = tw`bg-green-500 hover:bg-green-600`;
-  const incompleteColor = tw`bg-gray-200 hover:bg-gray-100`;
+  const completeColor = "bg-green-500 hover:bg-green-600";
+  const incompleteColor = "bg-gray-200 hover:bg-gray-100";
   return (
     <button
       {...props}
-      className={tw`text-2xl hover:cursor-pointer m-4 p-6 scroll-m-4 text-gray-800 ${
+      className={`text-2xl hover:cursor-pointer m-4 p-6 scroll-m-4 text-gray-800 ${
         completed ? completeColor : incompleteColor
       } rounded-xl ${props.className}`}
       // twind v0 doesn't support scroll-m-*

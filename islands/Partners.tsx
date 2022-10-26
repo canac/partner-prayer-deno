@@ -1,7 +1,5 @@
-/** @jsx h */
-import { createRef, h, RefObject } from "preact";
+import { createRef, RefObject } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { tw } from "@twind";
 import { Partner } from "../components/Partner.tsx";
 import { parseMany, Partner as PartnerModel } from "../partnerModel.ts";
 
@@ -25,17 +23,17 @@ export default function Partners(props: PartnersProps) {
   }, [partners]);
 
   return (
-    <div className={tw`flex flex-col`}>
+    <div className="flex flex-col">
       {partners.map((partner) => (
         <Partner
-          className={tw`md:self-center md:w-1/2`}
+          className="md:self-center md:w-1/2"
           key={partner.id}
           partner={partner}
           scrollTo={startPartner === partner}
         />
       ))}
       <button
-        className={tw`md:self-center md:w-1/2 text-2xl hover:cursor-pointer m-4 p-6 bg-red-500 hover:bg-red-600 rounded-xl`}
+        className="md:self-center md:w-1/2 text-2xl hover:cursor-pointer m-4 p-6 bg-red-500 hover:bg-red-600 rounded-xl"
         onClick={() => reset()}
       >
         Reset
