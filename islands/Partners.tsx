@@ -12,9 +12,12 @@ const Partners: FunctionComponent<PartnersProps> = (props) => {
   const [startPartner, setStartPartner] = useState<PartnerModel | null>(null);
 
   async function reset() {
+    // Optimistic update
+    setPartners(partners.map((partner) => ({ ...partner, completed: false })));
+
     const res = await fetch("/api/reset", { method: "POST" });
-    const partners = await res.json();
-    setPartners(parseMany(partners));
+    const updatedPartners = await res.json();
+    setPartners(parseMany(updatedPartners));
   }
 
   useEffect(() => {
