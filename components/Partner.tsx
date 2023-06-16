@@ -1,26 +1,29 @@
-import { createRef, JSX } from "preact";
+import { createRef, FunctionComponent, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { parseOne, Partner } from "../db/partnerModel.ts";
+import { parseOne, Partner as PartnerModel } from "../db/partnerModel.ts";
 
-export function Partner(
-  props: JSX.HTMLAttributes<HTMLButtonElement> & {
-    partner: Partner;
-    scrollTo: boolean;
-  },
-) {
-  const [completed, setCompleted] = useState(props.partner.completed);
+interface PartnerProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+  partner: PartnerModel;
+  scrollTo: boolean;
+}
+
+export const Partner: FunctionComponent<PartnerProps> = (
+  { partner, scrollTo, ...props },
+) => {
+  const [completed, setCompleted] = useState(partner.completed);
 
   // Update the completed state when the prop changes
   useEffect(() => {
-    setCompleted(props.partner.completed);
-  }, [props.partner]);
+    setCompleted(partner.completed);
+  }, [partner]);
 
   // Scroll the partner into view if scrollTo is true
   useEffect(() => {
-    if (props.scrollTo) {
+    if (scrollTo) {
+      console.log(ref.current);
       ref.current?.scrollIntoView();
     }
-  }, [props.scrollTo]);
+  }, [scrollTo]);
 
   const ref = createRef<HTMLButtonElement>();
 
@@ -30,11 +33,11 @@ export function Partner(
 
     const res = await fetch("/api/setCompleted", {
       method: "POST",
-      body: JSON.stringify({ id: props.partner.id, completed: !completed }),
+      body: JSON.stringify({ id: partner.id, completed: !completed }),
     });
-    const partner = await res.json();
+    const updatedPartner = await res.json();
 
-    setCompleted(parseOne(partner).completed);
+    setCompleted(parseOne(updatedPartner).completed);
   }
 
   const completeColor = "bg-green-500 hover:bg-green-600";
@@ -50,7 +53,7 @@ export function Partner(
       ref={ref}
       onClick={() => toggleCompleted()}
     >
-      {props.partner.name}
+      {partner.name}
     </button>
   );
-}
+};

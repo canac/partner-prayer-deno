@@ -1,3 +1,4 @@
+import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { Partner } from "../components/Partner.tsx";
 import { parseMany, Partner as PartnerModel } from "../db/partnerModel.ts";
@@ -6,7 +7,7 @@ interface PartnersProps {
   partners: Array<PartnerModel>;
 }
 
-export default function Partners(props: PartnersProps) {
+const Partners: FunctionComponent<PartnersProps> = (props) => {
   const [partners, setPartners] = useState(props.partners);
   const [startPartner, setStartPartner] = useState<PartnerModel | null>(null);
 
@@ -39,4 +40,6 @@ export default function Partners(props: PartnersProps) {
       </button>
     </div>
   );
-}
+};
+
+export default Partners;
