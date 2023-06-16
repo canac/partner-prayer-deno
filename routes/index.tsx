@@ -1,8 +1,8 @@
 import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Partners from "../islands/Partners.tsx";
-import { loadPartners } from "../db.ts";
-import { Partner } from "../partnerModel.ts";
+import { db } from "../db/db.ts";
+import { Partner } from "../db/partnerModel.ts";
 
 interface IndexData {
   partners: Partner[];
@@ -10,7 +10,7 @@ interface IndexData {
 
 export const handler: Handlers<IndexData> = {
   async GET(_, ctx) {
-    return ctx.render({ partners: await loadPartners() });
+    return ctx.render({ partners: await db.loadPartners() });
   },
 };
 

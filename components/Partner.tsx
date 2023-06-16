@@ -1,6 +1,6 @@
 import { createRef, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { parseOne, Partner } from "../partnerModel.ts";
+import { parseOne, Partner } from "../db/partnerModel.ts";
 
 export function Partner(
   props: JSX.HTMLAttributes<HTMLButtonElement> & {
@@ -34,7 +34,7 @@ export function Partner(
     });
     const partner = await res.json();
 
-    setCompleted((await parseOne(partner)).completed);
+    setCompleted(parseOne(partner).completed);
   }
 
   const completeColor = "bg-green-500 hover:bg-green-600";

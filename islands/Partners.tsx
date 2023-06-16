@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { Partner } from "../components/Partner.tsx";
-import { parseMany, Partner as PartnerModel } from "../partnerModel.ts";
+import { parseMany, Partner as PartnerModel } from "../db/partnerModel.ts";
 
 interface PartnersProps {
   partners: Array<PartnerModel>;
@@ -13,7 +13,7 @@ export default function Partners(props: PartnersProps) {
   async function reset() {
     const res = await fetch("/api/reset", { method: "POST" });
     const partners = await res.json();
-    setPartners(await parseMany(partners));
+    setPartners(parseMany(partners));
   }
 
   useEffect(() => {

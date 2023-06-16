@@ -1,6 +1,6 @@
 import { HandlerContext } from "$fresh/server.ts";
 import { z } from "zod";
-import { setCompleted } from "../../db.ts";
+import { db } from "../../db/db.ts";
 
 const payloadSchema = z.object({
   id: z.string(),
@@ -13,7 +13,7 @@ export const handler = async (
 ): Promise<Response> => {
   if (req.method === "POST") {
     const { id, completed } = await payloadSchema.parseAsync(await req.json());
-    const partner = await setCompleted(id, completed);
+    const partner = await db.setCompleted(id, completed);
     if (!partner) {
       return new Response("Not Found", { status: 404 });
     }
