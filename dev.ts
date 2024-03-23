@@ -1,8 +1,7 @@
-#!/usr/bin/env -S deno run -A --watch=routes/
-
 import dev from "$fresh/dev.ts";
-import { config } from "dotenv";
+import { config as dotenvConfig } from "dotenv";
+import config from "./fresh.config.ts";
 
-config({ export: true, safe: true });
+dotenvConfig({ export: true });
 
-await dev(import.meta.url, "./main.ts");
+await dev(import.meta.url, "./main.ts", config);
